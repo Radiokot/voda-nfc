@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".15" />
+        app:layout_constraintVertical_bias=".11" />
 
     <TextView
         android:id="@+id/liters_text_view"
@@ -47,6 +47,27 @@
         app:layout_constraintEnd_toEndOf="@id/bubbles_image_view"
         app:layout_constraintStart_toStartOf="@id/bubbles_image_view"
         app:layout_constraintTop_toBottomOf="@id/liters_text_view"
-
         tools:text="літрів" />
+
+    <TextView
+        android:id="@+id/balance_label_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/balance_label"
+        android:textColor="@color/primary_text_inverse"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bubbles_image_view" />
+
+    <TextView
+        android:id="@+id/balance_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/primary_text_inverse"
+        android:textSize="38sp"
+        app:layout_constraintStart_toStartOf="@id/balance_label_text_view"
+        app:layout_constraintTop_toBottomOf="@id/balance_label_text_view"
+        tools:text="170.34" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,18 @@
 package ua.com.radiokot.voda.features.reader.model
 
 import java.math.BigDecimal
+import java.math.MathContext
+import java.math.RoundingMode
 
 data class VodaCard(
-    val balance: Long,
+    val balance: BigDecimal
 ) {
-    val balanceUah: BigDecimal = BigDecimal(balance).movePointLeft(2)
+    constructor(balanceCop: Long) : this(
+        balance = BigDecimal(balanceCop).movePointLeft(2)
+    )
 
-    fun getLiters(pricePerLiter: Int): Long = balance / pricePerLiter
+    fun getLiters(pricePerLiter: BigDecimal) =
+        balance.divide(pricePerLiter, MathContext.DECIMAL32)
+            .setScale(2, RoundingMode.DOWN)
+            .stripTrailingZeros()
 }

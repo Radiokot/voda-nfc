@@ -11,6 +11,8 @@ import ua.com.radiokot.voda.BaseFragment
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
 import java.math.BigDecimal
+import java.math.MathContext
+import java.math.RoundingMode
 
 class ReaderCardDataFragment: BaseFragment() {
     override fun onCreateView(
@@ -26,8 +28,12 @@ class ReaderCardDataFragment: BaseFragment() {
             .cards
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { card ->
-                liters_text_view.text = BigDecimal(card.getLiters(140)).toPlainString()
-                liters_label_text_view.text = resources.getQuantityString(R.plurals.liters, (card.balance / 100).toInt())
+                val liters = card.getLiters(BigDecimal("1.4"))
+
+                liters_text_view.text = liters.toPlainString()
+                liters_label_text_view.text = resources.getQuantityString(R.plurals.liters, liters.setScale(0, RoundingMode.DOWN).intValueExact())
+
+                balance_text_view.text = card.balance.toPlainString()
             }
             .addTo(compositeDisposable)
     }

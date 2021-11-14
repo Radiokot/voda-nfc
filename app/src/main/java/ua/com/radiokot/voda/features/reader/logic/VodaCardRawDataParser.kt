@@ -8,11 +8,11 @@ import java.math.BigInteger
 
 class VodaCardRawDataParser {
     fun parse(rawData: VodaCardRawData): Single<VodaCard> = Single.defer {
-        val balance = parseBalance(rawData.balanceBlock)
+        val balanceCop = parseBalance(rawData.balanceBlock)
 
         Single.just(
             VodaCard(
-                balance = balance
+                balanceCop = balanceCop
             )
         )
     }

@@ -14,7 +14,7 @@ class VodaCardRawDataParserTest {
 
         Assert.assertEquals(
             VodaCard(
-                balance = 13891
+                balanceCop = 13891
             ),
             parser.parse(
                 VodaCardRawData(
@@ -25,7 +25,7 @@ class VodaCardRawDataParserTest {
 
         Assert.assertEquals(
             VodaCard(
-                balance = 14391
+                balanceCop = 14391
             ),
             parser.parse(
                 VodaCardRawData(
@@ -36,7 +36,7 @@ class VodaCardRawDataParserTest {
 
         Assert.assertEquals(
             VodaCard(
-                balance = 14358
+                balanceCop = 14358
             ),
             parser.parse(
                 VodaCardRawData(
