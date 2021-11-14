@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/default_horizontal_margin"
+    android:background="@drawable/background_start"
     android:paddingVertical="16dp">
 
     <TextView
         android:id="@+id/welcome_title_text_view"
+        style="@style/BoldText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/welcome_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textAllCaps="true"
+        android:textSize="38sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".25" />
+        app:layout_constraintVertical_bias=".15"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/welcome_message_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
         android:text="@string/welcome_message"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/welcome_title_text_view" />
 
     <ImageView
-        android:importantForAccessibility="no"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scaleType="centerInside"
         android:layout_marginTop="24dp"
-        android:background="@android:color/holo_blue_light"
+        android:src="@drawable/card"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome_message_text_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

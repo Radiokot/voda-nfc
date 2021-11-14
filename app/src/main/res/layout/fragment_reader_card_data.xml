@@ -4,24 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_end"
     android:paddingHorizontal="@dimen/default_horizontal_margin"
     android:paddingVertical="16dp">
 
-    <TextView
-        android:id="@+id/balance_label_text_view"
+    <ImageView
+        android:id="@+id/bubbles_image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/balance_label"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp"
+        android:importantForAccessibility="no"
+        android:scaleType="centerInside"
+        android:src="@drawable/bubbles"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".15" />
 
     <TextView
-        android:id="@+id/balance_text_view"
+        android:id="@+id/liters_text_view"
+        style="@style/BoldText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintTop_toBottomOf="@id/balance_label_text_view"
+        android:gravity="center"
+        android:textColor="@color/primary_text_inverse"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toBottomOf="@id/bubbles_image_view"
+        app:layout_constraintEnd_toEndOf="@id/bubbles_image_view"
+        app:layout_constraintStart_toStartOf="@id/bubbles_image_view"
+        app:layout_constraintTop_toTopOf="@id/bubbles_image_view"
+        app:layout_constraintVertical_bias=".4"
         tools:text="12,22" />
+
+    <TextView
+        android:id="@+id/liters_label_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@color/primary_text_inverse"
+        app:layout_constraintEnd_toEndOf="@id/bubbles_image_view"
+        app:layout_constraintStart_toStartOf="@id/bubbles_image_view"
+        app:layout_constraintTop_toBottomOf="@id/liters_text_view"
+
+        tools:text="літрів" />
 </androidx.constraintlayout.widget.ConstraintLayout>

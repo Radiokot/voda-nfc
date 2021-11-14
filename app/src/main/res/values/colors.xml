@@ -2,7 +2,10 @@
 <resources>
     <color name="colorAccent">#03DAC5</color>
     <color name="background">@color/white</color>
+    <color name="primary_text">@color/blue</color>
+    <color name="primary_text_inverse">@color/white</color>
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="blue">#2E59C7</color>
 </resources>

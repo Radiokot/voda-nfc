@@ -4,9 +4,16 @@
         <item name="colorPrimary">@color/background</item>
         <item name="colorPrimaryDark">@color/background</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/primary_text</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme" />
+
+    <style name="BoldText">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textFontWeight">900</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.1</item>
+    </style>
 </resources>
