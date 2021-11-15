@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">@color/black</color>
+    <color name="primary_text">@color/white</color>
+    <color name="primary_text_inverse">@color/white</color>
 </resources>
