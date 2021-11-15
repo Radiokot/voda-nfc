@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Voda</string>
+    <string name="app_name">Картка \"Вода в кишені\"</string>
     <string name="welcome_title">Ласкаво просимо</string>
     <string name="welcome_message">Увімкніть, будь ласка, NFC та прикладіть телефон до картки</string>
     <string name="balance_label">Баланс</string>
