@@ -75,9 +75,12 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        nfcReader.start()
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        // Enable the reader e.g. after status bar is pulled.
+        if (hasFocus && !nfcReader.isActive) {
+            nfcReader.start()
+        }
     }
 
     override fun onPause() {
