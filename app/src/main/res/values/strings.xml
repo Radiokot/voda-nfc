@@ -3,4 +3,5 @@
     <string name="welcome_title">Ласкаво просимо</string>
     <string name="welcome_message">Увімкніть, будь ласка, NFC та прикладіть телефон до картки</string>
     <string name="balance_label">Баланс</string>
+    <string name="liter_price_label">Актуальна ціна за літр</string>
 </resources>

@@ -5,17 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/background_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
     <ImageView
-        android:id="@+id/background_image_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:importantForAccessibility="no"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         android:src="@drawable/background_end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/background_start_guideline" />
 
     <ImageView
         android:id="@+id/bubbles_image_view"
@@ -25,7 +29,7 @@
         android:importantForAccessibility="no"
         android:scaleType="centerInside"
         android:src="@drawable/bubbles"
-        app:layout_constraintBottom_toTopOf="@id/background_image_view"
+        app:layout_constraintBottom_toTopOf="@id/background_start_guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".11" />
 
@@ -49,10 +53,11 @@
         android:id="@+id/liters_label_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:textColor="@color/primary_text_inverse"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@id/bubbles_image_view"
         app:layout_constraintStart_toStartOf="@id/bubbles_image_view"
         app:layout_constraintTop_toBottomOf="@id/liters_text_view"
@@ -69,7 +74,7 @@
         android:textColor="@color/primary_text_inverse"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/background_image_view" />
+        app:layout_constraintTop_toTopOf="@id/background_start_guideline" />
 
     <TextView
         android:id="@+id/balance_text_view"
@@ -79,7 +84,34 @@
         android:fontFamily="@font/bold"
         android:textColor="@color/primary_text_inverse"
         android:textSize="38sp"
+        android:translationY="-8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/balance_label_text_view"
         tools:text="170.34" />
+
+    <TextView
+        android:id="@+id/liter_price_label_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/liter_price_label"
+        android:textColor="@color/primary_text_inverse"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/balance_text_view" />
+
+    <TextView
+        android:id="@+id/liter_price_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/primary_text_inverse"
+        android:textSize="38sp"
+        android:translationY="-8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/liter_price_label_text_view"
+        tools:text="1.4" />
 </androidx.constraintlayout.widget.ConstraintLayout>
