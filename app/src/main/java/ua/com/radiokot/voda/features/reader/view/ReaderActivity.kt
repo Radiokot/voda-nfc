@@ -11,6 +11,7 @@ import ua.com.radiokot.voda.BaseActivity
 import ua.com.radiokot.voda.BuildConfig
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.extensions.decodeHex
+import ua.com.radiokot.voda.extensions.moderateSmoothScrollToPosition
 import ua.com.radiokot.voda.features.nfc.logic.SimpleNfcReader
 import ua.com.radiokot.voda.features.reader.logic.VodaCardMifareReader
 import ua.com.radiokot.voda.features.reader.logic.VodaCardRawDataParser
@@ -71,7 +72,7 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
     private fun onNewCard(card: VodaCard) {
         cardsSubject.onNext(card)
         if (pager.currentItem != ReaderFragmentsAdapter.CARD_DATA_POSITION) {
-            pager.setCurrentItem(ReaderFragmentsAdapter.CARD_DATA_POSITION, true)
+            pager.moderateSmoothScrollToPosition(ReaderFragmentsAdapter.CARD_DATA_POSITION)
         }
     }
 
