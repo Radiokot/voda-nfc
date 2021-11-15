@@ -3,20 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_end"
-    android:paddingHorizontal="@dimen/default_horizontal_margin"
-    android:paddingVertical="16dp">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/background_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/bubbles_image_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         android:importantForAccessibility="no"
         android:scaleType="centerInside"
         android:src="@drawable/bubbles"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintBottom_toTopOf="@id/background_image_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".11" />
 
@@ -53,21 +62,24 @@
         android:id="@+id/balance_label_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+        android:layout_marginTop="48dp"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/balance_label"
         android:textColor="@color/primary_text_inverse"
         android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bubbles_image_view" />
+        app:layout_constraintTop_toTopOf="@id/background_image_view" />
 
     <TextView
         android:id="@+id/balance_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
         android:fontFamily="@font/bold"
         android:textColor="@color/primary_text_inverse"
         android:textSize="38sp"
-        app:layout_constraintStart_toStartOf="@id/balance_label_text_view"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/balance_label_text_view"
         tools:text="170.34" />
 </androidx.constraintlayout.widget.ConstraintLayout>
