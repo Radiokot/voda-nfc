@@ -2,4 +2,6 @@
 <resources>
     <dimen name="lead_text_size">38sp</dimen>
     <dimen name="primary_text_size">18sp</dimen>
+    <dimen name="edit_button_height">38sp</dimen>
+    <dimen name="edit_button_top_margin">10sp</dimen>
 </resources>

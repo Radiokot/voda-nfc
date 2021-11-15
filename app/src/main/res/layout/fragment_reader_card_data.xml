@@ -80,7 +80,7 @@
 
     <TextView
         android:id="@+id/balance_text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_horizontal_margin"
         android:fontFamily="@font/bold"
@@ -106,7 +106,7 @@
 
     <TextView
         android:id="@+id/liter_price_text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_horizontal_margin"
         android:fontFamily="@font/bold"
@@ -116,4 +116,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/liter_price_label_text_view"
         tools:text="1.4" />
+
+    <ImageButton
+        android:id="@+id/edit_liter_price_button"
+        style="@style/BorderlessImageButton"
+        android:layout_height="@dimen/edit_button_height"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="@dimen/edit_button_top_margin"
+        android:contentDescription="@string/edit_liter_price"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintStart_toEndOf="@id/liter_price_text_view"
+        app:layout_constraintTop_toTopOf="@id/liter_price_text_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

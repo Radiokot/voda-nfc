@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- visible=0, invisible=1, gone=2 -->
+    <integer name="backgrounds_visibility">2</integer>
+</resources>

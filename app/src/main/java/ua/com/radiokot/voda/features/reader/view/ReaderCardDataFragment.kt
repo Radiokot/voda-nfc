@@ -1,9 +1,11 @@
 package ua.com.radiokot.voda.features.reader.view
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -33,7 +35,8 @@ class ReaderCardDataFragment : BaseFragment() {
 
         subscribeToCardSource()
 
-        initLabels()
+        initColors()
+        initButtons()
     }
 
     private fun subscribeToCardSource() {
@@ -44,16 +47,33 @@ class ReaderCardDataFragment : BaseFragment() {
             .addTo(compositeDisposable)
     }
 
-    private fun initLabels() {
-        val bottomLabelsColor =
+    private fun initColors() {
+        val bottomContentColor =
             if (background_image_view.visibility == View.VISIBLE)
                 ContextCompat.getColor(requireContext(), R.color.primary_text_inverse)
             else
                 ContextCompat.getColor(requireContext(), R.color.primary_text)
 
-        listOf(balance_label_text_view, balance_text_view,
-            liter_price_label_text_view, liter_price_text_view).forEach {
-            it.setTextColor(bottomLabelsColor)
+        listOf(
+            balance_label_text_view, balance_text_view,
+            liter_price_label_text_view, liter_price_text_view
+        ).forEach {
+            it.setTextColor(bottomContentColor)
+        }
+
+        edit_liter_price_button.imageTintList = ColorStateList.valueOf(bottomContentColor)
+    }
+
+    private fun initButtons() {
+        listOf(liter_price_text_view, edit_liter_price_button).forEach {
+            it.setOnClickListener {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.edit_liter_price),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
         }
     }
 

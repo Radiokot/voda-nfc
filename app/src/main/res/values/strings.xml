@@ -5,4 +5,5 @@
     <string name="balance_label">Баланс</string>
     <string name="liter_price_label">Актуальна ціна за літр</string>
     <string name="liters_when_fractional">літра</string>
+    <string name="edit_liter_price">Змінити ціну за літр</string>
 </resources>

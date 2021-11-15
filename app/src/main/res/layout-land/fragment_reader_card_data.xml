@@ -9,7 +9,8 @@
         android:id="@+id/background_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/screen_part_guideline"
@@ -23,7 +24,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-        android:layout_marginTop="32dp"
         android:importantForAccessibility="no"
         android:scaleType="centerInside"
         android:src="@drawable/bubbles"
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_horizontal_margin"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/balance_label"
         android:textColor="@color/primary_text"
@@ -111,4 +111,16 @@
         app:layout_constraintStart_toStartOf="@id/screen_part_guideline"
         app:layout_constraintTop_toBottomOf="@id/liter_price_label_text_view"
         tools:text="1.4" />
+
+    <ImageButton
+        android:id="@+id/edit_liter_price_button"
+        style="@style/BorderlessImageButton"
+        android:layout_height="@dimen/edit_button_height"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="@dimen/edit_button_top_margin"
+        android:contentDescription="@string/edit_liter_price"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintStart_toEndOf="@id/liter_price_text_view"
+        app:layout_constraintTop_toTopOf="@id/liter_price_text_view"
+        tools:background="@color/primary_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
