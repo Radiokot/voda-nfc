@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="lead_text_size">38sp</dimen>
+    <dimen name="primary_text_size">18sp</dimen>
+    <!-- visible=0, invisible=1, gone=2 -->
+    <integer name="backgrounds_visibility">0</integer>
+</resources>

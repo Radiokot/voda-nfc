@@ -6,7 +6,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_reader.*
 import ua.com.radiokot.voda.BaseActivity
 import ua.com.radiokot.voda.BuildConfig
@@ -17,6 +16,7 @@ import ua.com.radiokot.voda.features.reader.logic.VodaCardMifareReader
 import ua.com.radiokot.voda.features.reader.logic.VodaCardRawDataParser
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
+
 
 class ReaderActivity : BaseActivity(), VodaCardsSource {
     private val nfcReader by lazy {
@@ -40,6 +40,12 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
 
         initPager()
         initReader()
+
+        savedInstanceState?.getSerializable(CARD_DATA_STATE_KEY)?.also {
+            if (it is VodaCard) {
+                cardsSubject.onNext(it)
+            }
+        }
     }
 
     private fun initPager() {
@@ -77,5 +83,14 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
     override fun onPause() {
         super.onPause()
         nfcReader.stop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(CARD_DATA_STATE_KEY, cardsSubject.value)
+    }
+
+    private companion object {
+        private const val CARD_DATA_STATE_KEY = "card"
     }
 }

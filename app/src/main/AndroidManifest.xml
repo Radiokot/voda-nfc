@@ -17,8 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".features.reader.view.ReaderActivity"
-            android:configChanges="screenSize|orientation|smallestScreenSize|screenLayout">
+            android:name=".features.reader.view.ReaderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

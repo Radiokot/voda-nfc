@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="@string/welcome_title"
         android:textAllCaps="true"
-        android:textSize="38sp"
+        android:textSize="@dimen/lead_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".15"
@@ -29,7 +29,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="@string/welcome_message"
-        android:textSize="18sp"
+        android:textSize="@dimen/primary_text_size"
         app:layout_constraintTop_toBottomOf="@id/welcome_title_text_view" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -46,6 +46,7 @@
         android:importantForAccessibility="no"
         android:scaleType="centerInside"
         android:src="@drawable/background_start"
+        android:visibility="@integer/backgrounds_visibility"
         app:layout_constraintTop_toTopOf="@id/background_start_guideline" />
 
     <ImageView

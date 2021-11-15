@@ -11,26 +11,13 @@ abstract class BaseFragment: Fragment() {
      */
     protected lateinit var compositeDisposable: CompositeDisposable
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        compositeDisposable = CompositeDisposable()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState == null) {
-            onInitAllowed()
-        }
+        compositeDisposable = CompositeDisposable()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         compositeDisposable.dispose()
-        compositeDisposable = CompositeDisposable()
     }
-
-    /**
-     * You must implement your fragment initialization here
-     */
-    abstract fun onInitAllowed()
 }

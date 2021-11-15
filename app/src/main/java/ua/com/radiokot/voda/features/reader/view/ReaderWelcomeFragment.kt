@@ -16,7 +16,4 @@ class ReaderWelcomeFragment : BaseFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_reader_welcome, container, false)
     }
-
-    override fun onInitAllowed() {
-    }
 }

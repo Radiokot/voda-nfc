@@ -20,7 +20,7 @@ object AmountFormats {
             decimalFormatSymbols = DecimalFormatSymbols(Locale.getDefault())
             roundingMode = RoundingMode.DOWN
             maximumFractionDigits = 2
-            minimumFractionDigits = 0
+            minimumFractionDigits = 2
             positiveSuffix = " ₴"
             isGroupingUsed = true
         }
