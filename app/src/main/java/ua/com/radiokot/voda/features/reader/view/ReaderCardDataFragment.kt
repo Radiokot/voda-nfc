@@ -1,12 +1,13 @@
 package ua.com.radiokot.voda.features.reader.view
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_reader_card_data.*
@@ -15,12 +16,32 @@ import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.extensions.isInteger
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
+import ua.com.radiokot.voda.features.reader.storage.ReaderPreferences
+import ua.com.radiokot.voda.features.reader.storage.ReaderPreferencesImpl
 import ua.com.radiokot.voda.util.format.AmountFormats
 import java.math.BigDecimal
 
 class ReaderCardDataFragment : BaseFragment() {
     private val uahAmountFormat = AmountFormats.uah
     private val litersFormat = AmountFormats.default
+    private val preferences: ReaderPreferences by lazy {
+        ReaderPreferencesImpl(requireContext().getSharedPreferences("reader", Context.MODE_PRIVATE))
+    }
+
+    private var literPrice: BigDecimal
+        get() = preferences.literPrice
+        set(value) {
+            preferences.literPrice = value
+            onLiterPriceChanged()
+        }
+
+    private var card: VodaCard? = null
+        set(value) {
+            field = value
+            if (value != null) {
+                onNewCard(value)
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +64,7 @@ class ReaderCardDataFragment : BaseFragment() {
         ((parentFragment ?: activity) as VodaCardsSource)
             .cards
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onNewCard)
+            .subscribe { card = it }
             .addTo(compositeDisposable)
     }
 
@@ -61,24 +82,41 @@ class ReaderCardDataFragment : BaseFragment() {
             it.setTextColor(bottomContentColor)
         }
 
-        edit_liter_price_button.imageTintList = ColorStateList.valueOf(bottomContentColor)
+        ImageViewCompat.setImageTintList(
+            edit_liter_price_button,
+            ColorStateList.valueOf(bottomContentColor)
+        )
     }
 
     private fun initButtons() {
         listOf(liter_price_text_view, edit_liter_price_button).forEach {
             it.setOnClickListener {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.edit_liter_price),
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                showEditLiterPriceDialog()
             }
         }
     }
 
+    private fun showEditLiterPriceDialog() {
+        NewLiterPriceDialog(requireContext())
+            .show { newPrice ->
+                literPrice = newPrice
+            }
+    }
+
+    private fun onLiterPriceChanged() {
+        card?.also(this::displayLiters)
+    }
+
     private fun onNewCard(card: VodaCard) {
-        val literPrice = BigDecimal("1.4")
+        displayBalance(card)
+        displayLiters(card)
+    }
+
+    private fun displayBalance(card: VodaCard) {
+        balance_text_view.text = uahAmountFormat.format(card.balance)
+    }
+
+    private fun displayLiters(card: VodaCard) {
         val liters = card.getLiters(literPrice)
 
         liters_text_view.text = litersFormat.format(liters)
@@ -89,7 +127,6 @@ class ReaderCardDataFragment : BaseFragment() {
             else
                 resources.getString(R.string.liters_when_fractional)
 
-        balance_text_view.text = uahAmountFormat.format(card.balance)
 
         liter_price_text_view.text = uahAmountFormat.format(literPrice)
     }

@@ -3,7 +3,7 @@
     <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/background</item>
         <item name="colorPrimaryDark">@color/background</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="android:textColor">@color/primary_text</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
@@ -22,5 +22,29 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">4dp</item>
         <item name="android:background">?selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/accent</item>
+        <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
+        <item name="android:textColor">@null</item>
+        <item name="android:textSize">@null</item>
+        <item name="android:windowMinWidthMajor">65%</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:theme">@style/TextInputLayoutTheme</item>
+    </style>
+
+    <style name="TextInputLayoutTheme">
+        <item name="colorControlNormal">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">@color/accent</item>
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 </resources>

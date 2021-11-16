@@ -6,4 +6,8 @@
     <string name="liter_price_label">Актуальна ціна за літр</string>
     <string name="liters_when_fractional">літра</string>
     <string name="edit_liter_price">Змінити ціну за літр</string>
+    <string name="new_liter_price">Нова ціна за літр</string>
+    <string name="enter_price">Введіть ціну</string>
+    <string name="save">Зберегти</string>
+    <string name="cancel">Відміна</string>
 </resources>
