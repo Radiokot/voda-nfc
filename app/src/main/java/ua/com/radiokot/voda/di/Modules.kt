@@ -7,10 +7,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ua.com.radiokot.voda.BuildConfig
 import ua.com.radiokot.voda.extensions.decodeHex
-import ua.com.radiokot.voda.features.reader.logic.DummyVodaCardReader
-import ua.com.radiokot.voda.features.reader.logic.NfcVodaCardReader
-import ua.com.radiokot.voda.features.reader.logic.VodaCardMifareReader
-import ua.com.radiokot.voda.features.reader.logic.VodaCardRawDataParser
+import ua.com.radiokot.voda.features.reader.logic.*
 import ua.com.radiokot.voda.features.reader.storage.ReaderPreferences
 import ua.com.radiokot.voda.features.reader.storage.ReaderPreferencesImpl
 import ua.com.radiokot.voda.util.format.AmountFormats
@@ -43,8 +40,8 @@ val injectionModules: List<Module> = listOf(
 
     // Card reader.
     module {
-        single { definitionParameters ->
-            if (!BuildConfig.DUMMY_READER)
+        if (!BuildConfig.DUMMY_READER) {
+            factory<VodaCardReader> { definitionParameters ->
                 NfcVodaCardReader(
                     reader = definitionParameters[0],
                     mifareReader = VodaCardMifareReader(
@@ -52,8 +49,11 @@ val injectionModules: List<Module> = listOf(
                     ),
                     dataParser = VodaCardRawDataParser()
                 )
-            else
+            }
+        } else {
+            single<VodaCardReader> {
                 DummyVodaCardReader()
+            }
         }
     },
 )
