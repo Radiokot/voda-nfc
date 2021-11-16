@@ -4,14 +4,28 @@ import android.app.Application
 import android.util.Log
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import ua.com.radiokot.voda.di.Modules
 import java.io.IOException
 import java.net.SocketException
 
-class App: Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
         initRxErrorHandler()
+
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+
+            modules(
+                Modules.amountFormats,
+                Modules.persistence
+            )
+        }
     }
 
     private fun initRxErrorHandler() {

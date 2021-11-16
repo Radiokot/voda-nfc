@@ -1,6 +1,5 @@
 package ua.com.radiokot.voda.features.reader.view
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,22 +10,21 @@ import androidx.core.widget.ImageViewCompat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_reader_card_data.*
+import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 import ua.com.radiokot.voda.BaseFragment
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.extensions.isInteger
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
 import ua.com.radiokot.voda.features.reader.storage.ReaderPreferences
-import ua.com.radiokot.voda.features.reader.storage.ReaderPreferencesImpl
-import ua.com.radiokot.voda.util.format.AmountFormats
+import ua.com.radiokot.voda.util.format.AmountFormat
 import java.math.BigDecimal
 
 class ReaderCardDataFragment : BaseFragment() {
-    private val uahAmountFormat = AmountFormats.uah
-    private val litersFormat = AmountFormats.default
-    private val preferences: ReaderPreferences by lazy {
-        ReaderPreferencesImpl(requireContext().getSharedPreferences("reader", Context.MODE_PRIVATE))
-    }
+    private val uahAmountFormat: AmountFormat by inject(named("UAH"))
+    private val litersFormat: AmountFormat by inject()
+    private val preferences: ReaderPreferences by inject()
 
     private var literPrice: BigDecimal
         get() = preferences.literPrice
