@@ -27,10 +27,19 @@ android {
         } else {
             throw new GradleException("CardKeyHex is required to read card data")
         }
+
+        buildConfigField 'Boolean', 'DUMMY_READER', 'false'
     }
 
     buildTypes {
+        debugDummyReader {
+            initWith buildTypes.debug
+
+            buildConfigField 'Boolean', 'DUMMY_READER', 'true'
+        }
+
         release {
+            signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

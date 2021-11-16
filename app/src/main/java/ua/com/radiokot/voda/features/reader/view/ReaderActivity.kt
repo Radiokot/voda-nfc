@@ -1,6 +1,5 @@
 package ua.com.radiokot.voda.features.reader.view
 
-import android.nfc.tech.MifareClassic
 import android.os.Bundle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -8,24 +7,23 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.activity_reader.*
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import ua.com.radiokot.voda.BaseActivity
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.extensions.moderateSmoothScrollToPosition
+import ua.com.radiokot.voda.features.nfc.logic.NfcReader
 import ua.com.radiokot.voda.features.nfc.logic.SimpleNfcReader
-import ua.com.radiokot.voda.features.reader.logic.VodaCardMifareReader
-import ua.com.radiokot.voda.features.reader.logic.VodaCardRawDataParser
+import ua.com.radiokot.voda.features.reader.logic.VodaCardReader
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
 
 
 class ReaderActivity : BaseActivity(), VodaCardsSource {
-    private val nfcReader by lazy {
+    private val nfcReader: NfcReader by lazy {
         SimpleNfcReader(this)
     }
 
-    private val cardReader: VodaCardMifareReader by inject()
-
-    private val cardRawDataParser = VodaCardRawDataParser()
+    private val cardReader: VodaCardReader by inject(parameters = { parametersOf(nfcReader) })
 
     private val fragmentsAdapter = ReaderFragmentsAdapter(supportFragmentManager, lifecycle)
 
@@ -52,21 +50,17 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
     }
 
     private fun initReader() {
-        nfcReader
-            .tags
+        cardReader
+            .cards
             .observeOn(AndroidSchedulers.mainThread())
-            .filter { MifareClassic.get(it) != null }
-            .map(MifareClassic::get)
-            .flatMapSingle(cardReader::read)
-            .flatMapSingle(cardRawDataParser::parse)
             .subscribeBy(
-                onNext = this::onNewCard,
+                onNext = this::onCardRead,
                 onError = {}
             )
             .addTo(compositeDisposable)
     }
 
-    private fun onNewCard(card: VodaCard) {
+    private fun onCardRead(card: VodaCard) {
         cardsSubject.onNext(card)
         if (pager.currentItem != ReaderFragmentsAdapter.CARD_DATA_POSITION) {
             pager.moderateSmoothScrollToPosition(ReaderFragmentsAdapter.CARD_DATA_POSITION)
