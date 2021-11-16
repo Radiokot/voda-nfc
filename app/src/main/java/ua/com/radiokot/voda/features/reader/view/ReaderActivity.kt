@@ -7,10 +7,9 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.activity_reader.*
+import org.koin.android.ext.android.inject
 import ua.com.radiokot.voda.BaseActivity
-import ua.com.radiokot.voda.BuildConfig
 import ua.com.radiokot.voda.R
-import ua.com.radiokot.voda.extensions.decodeHex
 import ua.com.radiokot.voda.extensions.moderateSmoothScrollToPosition
 import ua.com.radiokot.voda.features.nfc.logic.SimpleNfcReader
 import ua.com.radiokot.voda.features.reader.logic.VodaCardMifareReader
@@ -24,9 +23,7 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
         SimpleNfcReader(this)
     }
 
-    private val cardReader by lazy {
-        VodaCardMifareReader(BuildConfig.CARD_KEY_HEX.decodeHex())
-    }
+    private val cardReader: VodaCardMifareReader by inject()
 
     private val cardRawDataParser = VodaCardRawDataParser()
 

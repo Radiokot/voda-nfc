@@ -14,6 +14,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
 import ua.com.radiokot.voda.BaseFragment
 import ua.com.radiokot.voda.R
+import ua.com.radiokot.voda.di.InjectedAmountFormat
 import ua.com.radiokot.voda.extensions.isInteger
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
@@ -22,7 +23,7 @@ import ua.com.radiokot.voda.util.format.AmountFormat
 import java.math.BigDecimal
 
 class ReaderCardDataFragment : BaseFragment() {
-    private val uahAmountFormat: AmountFormat by inject(named("UAH"))
+    private val uahAmountFormat: AmountFormat by inject(named(InjectedAmountFormat.UAH))
     private val litersFormat: AmountFormat by inject()
     private val preferences: ReaderPreferences by inject()
 

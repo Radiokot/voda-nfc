@@ -7,7 +7,7 @@ import io.reactivex.plugins.RxJavaPlugins
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ua.com.radiokot.voda.di.Modules
+import ua.com.radiokot.voda.di.injectionModules
 import java.io.IOException
 import java.net.SocketException
 
@@ -20,11 +20,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-
-            modules(
-                Modules.amountFormats,
-                Modules.persistence
-            )
+            modules(injectionModules)
         }
     }
 
