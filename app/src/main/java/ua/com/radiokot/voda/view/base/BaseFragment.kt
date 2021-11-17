@@ -1,4 +1,4 @@
-package ua.com.radiokot.voda
+package ua.com.radiokot.voda.view.base
 
 import android.os.Bundle
 import android.view.View

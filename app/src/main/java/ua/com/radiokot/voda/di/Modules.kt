@@ -1,6 +1,7 @@
 package ua.com.radiokot.voda.di
 
 import android.content.Context
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
@@ -11,6 +12,7 @@ import ua.com.radiokot.voda.features.reader.logic.*
 import ua.com.radiokot.voda.features.reader.storage.ReaderPreferences
 import ua.com.radiokot.voda.features.reader.storage.ReaderPreferencesImpl
 import ua.com.radiokot.voda.util.format.AmountFormats
+import ua.com.radiokot.voda.view.ToastManager
 
 val injectionModules: List<Module> = listOf(
     // AmountFormat.
@@ -54,6 +56,13 @@ val injectionModules: List<Module> = listOf(
             single<VodaCardReader> {
                 DummyVodaCardReader()
             }
+        }
+    },
+
+    // Toast manager.
+    module {
+        single {
+            ToastManager(androidApplication())
         }
     },
 )

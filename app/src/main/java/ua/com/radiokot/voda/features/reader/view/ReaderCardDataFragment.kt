@@ -12,7 +12,7 @@ import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_reader_card_data.*
 import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
-import ua.com.radiokot.voda.BaseFragment
+import ua.com.radiokot.voda.view.base.BaseFragment
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.di.InjectedAmountFormat
 import ua.com.radiokot.voda.extensions.isInteger

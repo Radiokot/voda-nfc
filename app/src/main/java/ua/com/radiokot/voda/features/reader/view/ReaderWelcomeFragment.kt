@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ua.com.radiokot.voda.BaseFragment
+import ua.com.radiokot.voda.view.base.BaseFragment
 import ua.com.radiokot.voda.R
 
 class ReaderWelcomeFragment : BaseFragment() {

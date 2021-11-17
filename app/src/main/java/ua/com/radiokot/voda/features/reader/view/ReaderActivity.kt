@@ -8,7 +8,6 @@ import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.activity_reader.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import ua.com.radiokot.voda.BaseActivity
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.extensions.moderateSmoothScrollToPosition
 import ua.com.radiokot.voda.features.nfc.logic.NfcReader
@@ -16,6 +15,7 @@ import ua.com.radiokot.voda.features.nfc.logic.SimpleNfcReader
 import ua.com.radiokot.voda.features.reader.logic.VodaCardReader
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
+import ua.com.radiokot.voda.view.base.BaseActivity
 
 
 class ReaderActivity : BaseActivity(), VodaCardsSource {
@@ -23,7 +23,7 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
         SimpleNfcReader(this)
     }
 
-    private val cardReader: VodaCardReader by inject(parameters = { parametersOf(nfcReader) })
+    private val cardReader: VodaCardReader by inject { parametersOf(nfcReader) }
 
     private val fragmentsAdapter = ReaderFragmentsAdapter(supportFragmentManager, lifecycle)
 
@@ -55,7 +55,10 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = this::onCardRead,
-                onError = {}
+                onError = { error ->
+                    error.printStackTrace()
+                    toastManager.short(R.string.error_failed_to_read_card_try_again)
+                }
             )
             .addTo(compositeDisposable)
     }
