@@ -42,7 +42,9 @@ val injectionModules: List<Module> = listOf(
                     mifareReader = VodaCardMifareReader(
                         cardKey = BuildConfig.CARD_KEY_HEX.decodeHex()
                     ),
-                    dataParser = VodaCardRawDataParser()
+                    dataParser = VodaCardRawDataParser(),
+                    vibrator = androidApplication()
+                        .getSystemService(Context.VIBRATOR_SERVICE) as android.os.Vibrator
                 )
             }
         } else {
