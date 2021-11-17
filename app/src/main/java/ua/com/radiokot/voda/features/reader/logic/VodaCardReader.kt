@@ -4,5 +4,13 @@ import io.reactivex.Observable
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 
 interface VodaCardReader {
+    /**
+     * Read cards.
+     */
     val cards: Observable<VodaCard>
+
+    /**
+     * Errors occurred during reading.
+     */
+    val errors: Observable<Throwable>
 }

@@ -15,4 +15,6 @@ class DummyVodaCardReader: VodaCardReader {
                     balance = BigDecimal("158.5")
                 )
             }
+
+    override val errors: Observable<Throwable> = Observable.empty()
 }

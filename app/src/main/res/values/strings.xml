@@ -11,4 +11,5 @@
     <string name="save">Зберегти</string>
     <string name="cancel">Відміна</string>
     <string name="error_failed_to_read_card_try_again">Не вдалося зчитати картку, спробуйте ще раз</string>
+    <string name="template_error_fatal_message">Сталася помилка: %1$s</string>
 </resources>

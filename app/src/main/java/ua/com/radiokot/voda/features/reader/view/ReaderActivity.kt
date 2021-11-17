@@ -71,11 +71,23 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = this::onCardRead,
-                onError = { error ->
-                    error.printStackTrace()
-                    toastManager.short(R.string.error_failed_to_read_card_try_again)
+                onError = { fatalError ->
+                    fatalError.printStackTrace()
+                    toastManager.short(getString(
+                        R.string.template_error_fatal_message,
+                        fatalError.localizedMessage ?: fatalError.message
+                    ))
                 }
             )
+            .addTo(compositeDisposable)
+
+        cardReader
+            .errors
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { error ->
+                error.printStackTrace()
+                toastManager.short(R.string.error_failed_to_read_card_try_again)
+            }
             .addTo(compositeDisposable)
     }
 

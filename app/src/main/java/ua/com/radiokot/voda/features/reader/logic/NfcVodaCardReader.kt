@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 
@@ -25,6 +26,9 @@ class NfcVodaCardReader(
     private val vibrator: Vibrator? = null
 ) : VodaCardReader {
 
+    private val errorsSubject: PublishSubject<Throwable> = PublishSubject.create()
+    override val errors: Observable<Throwable> = errorsSubject
+
     private val requiredTechLists = resources.getXml(R.xml.required_nfc_techs)
         .let(NfcTechListsXmlParser()::parse)
 
@@ -39,6 +43,11 @@ class NfcVodaCardReader(
             .map(MifareClassic::get)
             .flatMapSingle(mifareReader::read)
             .flatMapSingle(dataParser::parse)
+            // Redirect errors to the separate sequence.
+            .retry { error ->
+                errorsSubject.onNext(error)
+                true
+            }
             .doOnNext { vibrate() }
 
     private fun vibrate() {
