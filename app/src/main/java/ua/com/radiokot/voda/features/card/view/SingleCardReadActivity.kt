@@ -11,14 +11,17 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 import ua.com.radiokot.voda.R
+import ua.com.radiokot.voda.di.InjectedCardReader
 import ua.com.radiokot.voda.features.card.model.VodaCard
 import ua.com.radiokot.voda.features.reader.logic.VodaCardReader
 import ua.com.radiokot.voda.view.base.BaseActivity
 
 class SingleCardReadActivity : BaseActivity(), VodaCardsSource {
     private val tagsSubject: PublishSubject<Tag> = PublishSubject.create()
-    private val cardReader: VodaCardReader by inject { parametersOf(tagsSubject) }
+    private val cardReader: VodaCardReader
+            by inject(named(InjectedCardReader.REAL)) { parametersOf(tagsSubject) }
 
     private val cardsSubject: BehaviorSubject<VodaCard> = BehaviorSubject.create()
     override val cards: Observable<VodaCard> = cardsSubject
