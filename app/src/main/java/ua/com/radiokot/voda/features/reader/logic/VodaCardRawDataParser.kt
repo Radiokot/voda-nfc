@@ -9,7 +9,6 @@ class VodaCardRawDataParser {
     fun parse(rawData: VodaCardRawData): VodaCard {
         val balanceCop = parseBalance(rawData.balanceBlock)
 
-
         return VodaCard(
             balanceCop = balanceCop
         )

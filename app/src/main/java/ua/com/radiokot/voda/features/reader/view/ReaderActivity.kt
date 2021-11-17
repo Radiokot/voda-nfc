@@ -3,7 +3,6 @@ package ua.com.radiokot.voda.features.reader.view
 import android.os.Bundle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.activity_reader.*
 import org.koin.android.ext.android.inject
@@ -53,23 +52,13 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
         cardReader
             .cards
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = this::onCardRead,
-                onError = { fatalError ->
-                    fatalError.printStackTrace()
-                    toastManager.short(getString(
-                        R.string.template_error_fatal_message,
-                        fatalError.localizedMessage ?: fatalError.message
-                    ))
-                }
-            )
+            .subscribe(this::onCardRead)
             .addTo(compositeDisposable)
 
         cardReader
             .errors
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { error ->
-                error.printStackTrace()
+            .subscribe {
                 toastManager.short(R.string.error_failed_to_read_card_try_again)
             }
             .addTo(compositeDisposable)

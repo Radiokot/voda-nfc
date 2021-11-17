@@ -6,8 +6,10 @@ import android.nfc.tech.MifareClassic
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import ua.com.radiokot.voda.BuildConfig
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.features.card.model.VodaCard
 
@@ -45,10 +47,18 @@ class NfcVodaCardReader(
             .map(dataParser::parse)
             // Redirect errors to the separate sequence.
             .retry { error ->
+                Log.e(LOG_TAG, "cards: read_error, error = ${error.stackTraceToString()}")
+
                 errorsSubject.onNext(error)
                 true
             }
-            .doOnNext { vibrate() }
+            .doOnNext {
+                vibrate()
+
+                if (BuildConfig.DEBUG) {
+                    Log.d(LOG_TAG, "cards: card_read, card = $it")
+                }
+            }
 
     private fun vibrate() {
         if (vibrator != null && vibrator.hasVibrator()) {
@@ -58,5 +68,9 @@ class NfcVodaCardReader(
                 vibrator.vibrate(50)
             }
         }
+    }
+
+    private companion object {
+        private const val LOG_TAG = "NfcVCReader"
     }
 }

@@ -6,7 +6,6 @@ import android.os.Bundle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
@@ -53,26 +52,12 @@ class SingleCardReadActivity : BaseActivity(), VodaCardsSource {
         cardReader
             .cards
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = cardsSubject::onNext,
-                onError = { fatalError ->
-                    fatalError.printStackTrace()
-                    toastManager.short(
-                        getString(
-                            R.string.template_error_fatal_message,
-                            fatalError.localizedMessage ?: fatalError.message
-                        )
-                    )
-                    finish()
-                }
-            )
-            .addTo(compositeDisposable)
+            .subscribe(cardsSubject)
 
         cardReader
             .errors
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { error ->
-                error.printStackTrace()
+            .subscribe {
                 toastManager.short(R.string.error_failed_to_read_card_try_again)
                 finish()
             }
