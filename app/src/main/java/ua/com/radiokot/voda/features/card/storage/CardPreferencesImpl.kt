@@ -1,12 +1,12 @@
-package ua.com.radiokot.voda.features.reader.storage
+package ua.com.radiokot.voda.features.card.storage
 
 import android.content.SharedPreferences
 import ua.com.radiokot.voda.util.BigDecimalUtil
 import java.math.BigDecimal
 
-class ReaderPreferencesImpl(
+class CardPreferencesImpl(
     private val sharedPreferences: SharedPreferences
-) : ReaderPreferences {
+) : CardPreferences {
     override var literPrice: BigDecimal
         get() =
             sharedPreferences

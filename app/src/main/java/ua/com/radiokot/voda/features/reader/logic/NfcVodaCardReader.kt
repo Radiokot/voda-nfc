@@ -9,7 +9,7 @@ import android.os.Vibrator
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import ua.com.radiokot.voda.R
-import ua.com.radiokot.voda.features.reader.model.VodaCard
+import ua.com.radiokot.voda.features.card.model.VodaCard
 
 /**
  * Reads voda cards from NFC tags.
@@ -21,7 +21,7 @@ import ua.com.radiokot.voda.features.reader.model.VodaCard
 class NfcVodaCardReader(
     tags: Observable<Tag>,
     resources: Resources,
-    private val mifareReader: VodaCardMifareReader,
+    private val mifareReader: MifareVodaCardRawDataReader,
     private val dataParser: VodaCardRawDataParser,
     private val vibrator: Vibrator? = null
 ) : VodaCardReader {
@@ -42,7 +42,7 @@ class NfcVodaCardReader(
             }
             .map(MifareClassic::get)
             .flatMapSingle(mifareReader::read)
-            .flatMapSingle(dataParser::parse)
+            .map(dataParser::parse)
             // Redirect errors to the separate sequence.
             .retry { error ->
                 errorsSubject.onNext(error)

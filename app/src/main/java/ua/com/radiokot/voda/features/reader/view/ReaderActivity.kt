@@ -16,8 +16,8 @@ import ua.com.radiokot.voda.extensions.moderateSmoothScrollToPosition
 import ua.com.radiokot.voda.features.nfc.logic.NfcReader
 import ua.com.radiokot.voda.features.nfc.logic.SimpleNfcReader
 import ua.com.radiokot.voda.features.reader.logic.VodaCardReader
-import ua.com.radiokot.voda.features.reader.model.VodaCard
-import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
+import ua.com.radiokot.voda.features.card.model.VodaCard
+import ua.com.radiokot.voda.features.card.view.VodaCardsSource
 import ua.com.radiokot.voda.view.base.BaseActivity
 
 

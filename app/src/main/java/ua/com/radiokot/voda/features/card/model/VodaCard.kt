@@ -1,4 +1,4 @@
-package ua.com.radiokot.voda.features.reader.model
+package ua.com.radiokot.voda.features.card.model
 
 import java.io.Serializable
 import java.math.BigDecimal

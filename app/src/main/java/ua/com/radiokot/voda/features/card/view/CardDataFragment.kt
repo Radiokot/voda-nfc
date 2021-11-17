@@ -1,4 +1,4 @@
-package ua.com.radiokot.voda.features.reader.view
+package ua.com.radiokot.voda.features.card.view
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -16,16 +16,15 @@ import ua.com.radiokot.voda.view.base.BaseFragment
 import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.di.InjectedAmountFormat
 import ua.com.radiokot.voda.extensions.isInteger
-import ua.com.radiokot.voda.features.reader.model.VodaCard
-import ua.com.radiokot.voda.features.reader.model.VodaCardsSource
-import ua.com.radiokot.voda.features.reader.storage.ReaderPreferences
+import ua.com.radiokot.voda.features.card.model.VodaCard
+import ua.com.radiokot.voda.features.card.storage.CardPreferences
 import ua.com.radiokot.voda.util.format.AmountFormat
 import java.math.BigDecimal
 
-class ReaderCardDataFragment : BaseFragment() {
+class CardDataFragment : BaseFragment() {
     private val uahAmountFormat: AmountFormat by inject(named(InjectedAmountFormat.UAH))
     private val litersFormat: AmountFormat by inject()
-    private val preferences: ReaderPreferences by inject()
+    private val preferences: CardPreferences by inject()
 
     private var literPrice: BigDecimal
         get() = preferences.literPrice

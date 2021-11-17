@@ -4,7 +4,7 @@ import org.junit.Assert
 import org.junit.Test
 import ua.com.radiokot.voda.extensions.decodeHex
 import ua.com.radiokot.voda.features.reader.logic.VodaCardRawDataParser
-import ua.com.radiokot.voda.features.reader.model.VodaCard
+import ua.com.radiokot.voda.features.card.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardRawData
 
 class VodaCardRawDataParserTest {

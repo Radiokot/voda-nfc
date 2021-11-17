@@ -1,4 +1,4 @@
-package ua.com.radiokot.voda.features.reader.view
+package ua.com.radiokot.voda.features.card.view
 
 import android.annotation.SuppressLint
 import android.content.Context

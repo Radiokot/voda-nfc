@@ -1,19 +1,17 @@
 package ua.com.radiokot.voda.features.reader.logic
 
-import io.reactivex.Single
 import ua.com.radiokot.voda.extensions.encodeHex
-import ua.com.radiokot.voda.features.reader.model.VodaCard
+import ua.com.radiokot.voda.features.card.model.VodaCard
 import ua.com.radiokot.voda.features.reader.model.VodaCardRawData
 import java.math.BigInteger
 
 class VodaCardRawDataParser {
-    fun parse(rawData: VodaCardRawData): Single<VodaCard> = Single.defer {
+    fun parse(rawData: VodaCardRawData): VodaCard {
         val balanceCop = parseBalance(rawData.balanceBlock)
 
-        Single.just(
-            VodaCard(
-                balanceCop = balanceCop
-            )
+
+        return VodaCard(
+            balanceCop = balanceCop
         )
     }
 

@@ -4,7 +4,7 @@ import android.nfc.tech.MifareClassic
 import io.reactivex.Single
 import ua.com.radiokot.voda.features.reader.model.VodaCardRawData
 
-class VodaCardMifareReader(
+class MifareVodaCardRawDataReader(
     private val cardKey: ByteArray
 ) {
     init {

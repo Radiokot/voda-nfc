@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import ua.com.radiokot.voda.features.card.view.CardDataFragment
 
 class ReaderFragmentsAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
@@ -13,7 +14,7 @@ class ReaderFragmentsAdapter(fragmentManager: FragmentManager, lifecycle: Lifecy
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             WELCOME_POSITION -> ReaderWelcomeFragment()
-            CARD_DATA_POSITION -> ReaderCardDataFragment()
+            CARD_DATA_POSITION -> CardDataFragment()
             else -> throw IndexOutOfBoundsException()
         }
     }
