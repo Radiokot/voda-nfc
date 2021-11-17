@@ -1,21 +1,28 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# General reflection
+-keepattributes Signature, InnerClasses, EnclosingMethod
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations
+-dontwarn javax.annotation.**
+-keepclassmembers enum * { *; }
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# General
+-keepattributes SourceFile,LineNumberTable,*Annotation*,EnclosingMethod,Signature,Exceptions,InnerClasses
+-keep public class * extends java.lang.Exception
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# ProGuard issue
+# https://sourceforge.net/p/proguard/bugs/573/
+-optimizations !class/unboxing/enum
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# These classes are used via kotlin reflection and the keep might not be required anymore once Proguard supports
+# Kotlin reflection directly.
+-keep class kotlin.Metadata
+
+# class [META-INF/versions/9/module-info.class] unexpectedly contains class [module-info]
+-dontwarn module-info
+
+# ViewPager2 slow scroll hack
+-keepclassmembers class androidx.viewpager2.widget.ViewPager2 {
+    private <fields>;
+}
+
+# Fragments declared in XML
+-keepnames class * extends androidx.fragment.app.Fragment
