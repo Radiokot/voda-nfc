@@ -1,29 +1,41 @@
 package ua.com.radiokot.voda.features.reader.logic
 
+import android.content.res.Resources
+import android.nfc.Tag
 import android.nfc.tech.MifareClassic
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import io.reactivex.Observable
-import ua.com.radiokot.voda.features.nfc.logic.NfcReader
+import ua.com.radiokot.voda.R
 import ua.com.radiokot.voda.features.reader.model.VodaCard
 
 /**
- * Transforms [reader] read tags to cards
+ * Reads voda cards from NFC tags.
  *
+ * @param tags sequence of NFC tags to read
+ * @param resources required to load [R.xml.required_nfc_techs]
  * @param vibrator optional, to vibrate on card discovery
  */
 class NfcVodaCardReader(
-    reader: NfcReader,
+    tags: Observable<Tag>,
+    resources: Resources,
     private val mifareReader: VodaCardMifareReader,
     private val dataParser: VodaCardRawDataParser,
     private val vibrator: Vibrator? = null
-) : VodaCardReader, NfcReader by reader {
+) : VodaCardReader {
+
+    private val requiredTechLists = resources.getXml(R.xml.required_nfc_techs)
+        .let(NfcTechListsXmlParser()::parse)
 
     override val cards: Observable<VodaCard> =
-        reader
-            .tags
-            .filter { MifareClassic.get(it) != null }
+        tags
+            .filter { tag ->
+                val tagTechList = tag.techList.toHashSet()
+                requiredTechLists.any { requiredTechList ->
+                    requiredTechList.all(tagTechList::contains)
+                }
+            }
             .map(MifareClassic::get)
             .flatMapSingle(mifareReader::read)
             .flatMapSingle(dataParser::parse)

@@ -1,10 +1,13 @@
 package ua.com.radiokot.voda.features.reader.view
 
+import android.nfc.NfcAdapter
+import android.nfc.Tag
 import android.os.Bundle
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_reader.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -23,7 +26,13 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
         SimpleNfcReader(this)
     }
 
-    private val cardReader: VodaCardReader by inject { parametersOf(nfcReader) }
+    private val tagsSubject: PublishSubject<Tag> by lazy {
+        PublishSubject
+            .create<Tag>()
+            .also(nfcReader.tags::subscribe)
+    }
+
+    private val cardReader: VodaCardReader by inject { parametersOf(tagsSubject) }
 
     private val fragmentsAdapter = ReaderFragmentsAdapter(supportFragmentManager, lifecycle)
 
@@ -41,6 +50,13 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
             if (it is VodaCard) {
                 cardsSubject.onNext(it)
             }
+        }
+
+        if (NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
+            intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
+                ?.also { intentTag ->
+                    tagsSubject.onNext(intentTag)
+                }
         }
     }
 

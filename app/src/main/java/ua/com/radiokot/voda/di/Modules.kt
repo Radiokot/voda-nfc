@@ -38,7 +38,8 @@ val injectionModules: List<Module> = listOf(
         if (!BuildConfig.DUMMY_READER) {
             factory<VodaCardReader> { definitionParameters ->
                 NfcVodaCardReader(
-                    reader = definitionParameters[0],
+                    tags = definitionParameters[0],
+                    resources = androidApplication().resources,
                     mifareReader = VodaCardMifareReader(
                         cardKey = BuildConfig.CARD_KEY_HEX.decodeHex()
                     ),
