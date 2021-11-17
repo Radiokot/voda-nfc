@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <me.grantland.widget.AutofitTextView
         android:id="@+id/welcome_title_text_view"
         style="@style/BoldText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_horizontal_margin"
         android:gravity="center"
+        android:lines="2"
+        android:maxLines="2"
         android:text="@string/welcome_title"
         android:textAllCaps="true"
         android:textSize="@dimen/lead_text_size"

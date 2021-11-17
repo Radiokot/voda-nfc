@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="liters">
+        <item quantity="one" tools:ignore="ImpliedQuantity">литр</item>
+        <item quantity="few">литра</item>
+        <item quantity="many">литров</item>
+        <item quantity="other">литров</item>
+    </plurals>
+</resources>

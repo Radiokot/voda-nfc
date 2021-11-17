@@ -35,13 +35,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".11" />
 
-    <TextView
+    <me.grantland.widget.AutofitTextView
         android:id="@+id/liters_text_view"
         style="@style/BoldText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
+        android:maxLines="1"
         android:textColor="@color/primary_text_inverse"
         android:textSize="@dimen/lead_text_size"
         app:layout_constraintBottom_toBottomOf="@id/bubbles_image_view"
@@ -49,6 +50,7 @@
         app:layout_constraintStart_toStartOf="@id/bubbles_image_view"
         app:layout_constraintTop_toTopOf="@id/bubbles_image_view"
         app:layout_constraintVertical_bias=".4"
+        app:layout_constraintWidth_percent=".5"
         tools:text="12,22" />
 
     <TextView

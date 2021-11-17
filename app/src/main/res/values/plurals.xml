@@ -2,7 +2,6 @@
 <resources>
     <plurals name="liters">
         <item quantity="one">літр</item>
-        <item quantity="two">літри</item>
         <item quantity="few">літри</item>
         <item quantity="many">літрів</item>
         <item quantity="other">літрів</item>

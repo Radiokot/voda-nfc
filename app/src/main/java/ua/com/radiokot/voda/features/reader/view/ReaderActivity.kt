@@ -1,6 +1,7 @@
 package ua.com.radiokot.voda.features.reader.view
 
 import android.os.Bundle
+import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
@@ -40,6 +41,10 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
             if (it is VodaCard) {
                 cardsSubject.onNext(it)
             }
+        }
+
+        (0..29).forEach {
+            Log.i("Oleg", "$it ${resources.getQuantityString(R.plurals.liters, it)}")
         }
     }
 

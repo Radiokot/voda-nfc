@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Карта \"Вода в кармане\"</string>
+    <string name="welcome_title">Добро пожаловать</string>
+    <string name="welcome_message">Включите, пожалуйста, NFC и приложите телефон к карте</string>
+    <string name="balance_label">Баланс</string>
+    <string name="liter_price_label">Актуальная цена за литр</string>
+    <string name="liters_when_fractional">литра</string>
+    <string name="edit_liter_price">Изменить цену за литр</string>
+    <string name="new_liter_price">Новая цена за литр</string>
+    <string name="enter_price">Введите цену</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="error_failed_to_read_card_try_again">Не удалось считать карту, попробуйте еще раз</string>
+    <string name="template_error_fatal_message">Возникла ошибка: %1$s</string>
+</resources>
