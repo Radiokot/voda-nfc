@@ -33,13 +33,6 @@ val injectionModules: List<Module> = listOf(
         }
     },
 
-    // Keystore.
-    module {
-        single(named(InjectedKey.VODA_CARD)) {
-            BuildConfig.CARD_KEY_HEX.decodeHex()
-        }
-    },
-
     // Card reader.
     module {
         if (!BuildConfig.DUMMY_READER) {
@@ -47,7 +40,7 @@ val injectionModules: List<Module> = listOf(
                 NfcVodaCardReader(
                     reader = definitionParameters[0],
                     mifareReader = VodaCardMifareReader(
-                        cardKey = get(named(InjectedKey.VODA_CARD))
+                        cardKey = BuildConfig.CARD_KEY_HEX.decodeHex()
                     ),
                     dataParser = VodaCardRawDataParser()
                 )
