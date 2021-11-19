@@ -1,6 +1,7 @@
 package ua.com.radiokot.voda.di
 
 import android.content.Context
+import android.provider.Settings
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
@@ -53,7 +54,13 @@ val injectionModules: List<Module> = listOf(
         }
 
         factory<VodaCardReader> { definitionParameters ->
-            if (BuildConfig.DUMMY_READER)
+            val isInFirebaseTestLab = Settings.System
+                .getString(
+                    androidApplication().contentResolver,
+                    "firebase.test.lab"
+                ) == "true"
+
+            if (BuildConfig.DUMMY_READER || isInFirebaseTestLab)
                 get(named(InjectedCardReader.DUMMY))
             else
                 get(named(InjectedCardReader.REAL)) { definitionParameters }
