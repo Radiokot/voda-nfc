@@ -9,19 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_reader_card_data.*
 import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
-import ua.com.radiokot.voda.view.base.BaseFragment
 import ua.com.radiokot.voda.R
+import ua.com.radiokot.voda.databinding.FragmentReaderCardDataBinding
 import ua.com.radiokot.voda.di.InjectedAmountFormat
 import ua.com.radiokot.voda.extensions.isInteger
 import ua.com.radiokot.voda.features.card.model.VodaCard
 import ua.com.radiokot.voda.features.card.storage.CardPreferences
 import ua.com.radiokot.voda.util.format.AmountFormat
+import ua.com.radiokot.voda.view.base.BaseFragment
 import java.math.BigDecimal
 
 class CardDataFragment : BaseFragment() {
+    private lateinit var view: FragmentReaderCardDataBinding
     private val uahAmountFormat: AmountFormat by inject(named(InjectedAmountFormat.UAH))
     private val litersFormat: AmountFormat by inject()
     private val preferences: CardPreferences by inject()
@@ -45,8 +46,9 @@ class CardDataFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_reader_card_data, container, false)
+    ): View {
+        view = FragmentReaderCardDataBinding.inflate(inflater, container, false)
+        return view.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,26 +70,26 @@ class CardDataFragment : BaseFragment() {
 
     private fun initColors() {
         val bottomContentColor =
-            if (background_image_view.visibility == View.VISIBLE)
+            if (view.backgroundImageView.visibility == View.VISIBLE)
                 ContextCompat.getColor(requireContext(), R.color.primary_text_inverse)
             else
                 ContextCompat.getColor(requireContext(), R.color.primary_text)
 
         listOf(
-            balance_label_text_view, balance_text_view,
-            liter_price_label_text_view, liter_price_text_view
+            view.balanceLabelTextView, view.balanceTextView,
+            view.literPriceLabelTextView, view.literPriceTextView
         ).forEach {
             it.setTextColor(bottomContentColor)
         }
 
         ImageViewCompat.setImageTintList(
-            edit_liter_price_button,
+            view.editLiterPriceButton,
             ColorStateList.valueOf(bottomContentColor)
         )
     }
 
     private fun initButtons() {
-        listOf(liter_price_text_view, edit_liter_price_button).forEach {
+        listOf(view.literPriceTextView, view.editLiterPriceButton).forEach {
             it.setOnClickListener {
                 showEditLiterPriceDialog()
             }
@@ -111,14 +113,14 @@ class CardDataFragment : BaseFragment() {
     }
 
     private fun displayBalance(card: VodaCard) {
-        balance_text_view.text = uahAmountFormat.format(card.balance)
+        view.balanceTextView.text = uahAmountFormat.format(card.balance)
     }
 
     private fun displayLiters(card: VodaCard) {
         val liters = card.getLiters(literPrice)
 
-        liters_text_view.text = litersFormat.format(liters)
-        liters_label_text_view.text =
+        view.litersTextView.text = litersFormat.format(liters)
+        view.litersLabelTextView.text =
                 // 1 liter but 1.5 liters, 3 літри але 3.5 літра.
             if (liters.isInteger)
                 resources.getQuantityString(R.plurals.liters, liters.intValueExact())
@@ -126,6 +128,6 @@ class CardDataFragment : BaseFragment() {
                 resources.getString(R.string.liters_when_fractional)
 
 
-        liter_price_text_view.text = uahAmountFormat.format(literPrice)
+        view.literPriceTextView.text = uahAmountFormat.format(literPrice)
     }
 }

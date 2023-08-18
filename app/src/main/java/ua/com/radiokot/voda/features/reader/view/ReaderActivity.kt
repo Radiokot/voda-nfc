@@ -5,10 +5,10 @@ import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
-import kotlinx.android.synthetic.main.activity_reader.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import ua.com.radiokot.voda.R
+import ua.com.radiokot.voda.databinding.ActivityReaderBinding
 import ua.com.radiokot.voda.extensions.moderateSmoothScrollToPosition
 import ua.com.radiokot.voda.features.card.model.VodaCard
 import ua.com.radiokot.voda.features.card.view.VodaCardsSource
@@ -19,11 +19,15 @@ import ua.com.radiokot.voda.view.base.BaseActivity
 
 
 class ReaderActivity : BaseActivity(), VodaCardsSource {
+    private lateinit var view: ActivityReaderBinding
+
     private val nfcReader: NfcReader by lazy {
         SimpleNfcReader(this)
     }
 
-    private val cardReader: VodaCardReader by inject { parametersOf(nfcReader.tags) }
+    private val cardReader: VodaCardReader by inject {
+        parametersOf(nfcReader.tags)
+    }
 
     private val fragmentsAdapter = ReaderFragmentsAdapter(supportFragmentManager, lifecycle)
 
@@ -32,11 +36,14 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reader)
+
+        view = ActivityReaderBinding.inflate(layoutInflater)
+        setContentView(view.root)
 
         initPager()
         initReader()
 
+        @Suppress("DEPRECATION")
         savedInstanceState?.getSerializable(CARD_DATA_STATE_KEY)?.also {
             if (it is VodaCard) {
                 cardsSubject.onNext(it)
@@ -49,8 +56,8 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
     }
 
     private fun initPager() {
-        pager.adapter = fragmentsAdapter
-        pager.isUserInputEnabled = false
+        view.pager.adapter = fragmentsAdapter
+        view.pager.isUserInputEnabled = false
     }
 
     private fun initReader() {
@@ -71,8 +78,8 @@ class ReaderActivity : BaseActivity(), VodaCardsSource {
 
     private fun onCardRead(card: VodaCard) {
         cardsSubject.onNext(card)
-        if (pager.currentItem != ReaderFragmentsAdapter.CARD_DATA_POSITION) {
-            pager.moderateSmoothScrollToPosition(ReaderFragmentsAdapter.CARD_DATA_POSITION)
+        if (view.pager.currentItem != ReaderFragmentsAdapter.CARD_DATA_POSITION) {
+            view.pager.moderateSmoothScrollToPosition(ReaderFragmentsAdapter.CARD_DATA_POSITION)
         }
     }
 

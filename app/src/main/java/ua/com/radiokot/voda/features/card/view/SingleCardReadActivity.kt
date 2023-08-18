@@ -19,8 +19,9 @@ import ua.com.radiokot.voda.view.base.BaseActivity
 
 class SingleCardReadActivity : BaseActivity(), VodaCardsSource {
     private val tagsSubject: PublishSubject<Tag> = PublishSubject.create()
-    private val cardReader: VodaCardReader
-            by inject(named(InjectedCardReader.REAL)) { parametersOf(tagsSubject) }
+    private val cardReader: VodaCardReader by inject(named(InjectedCardReader.REAL)) {
+        parametersOf(tagsSubject)
+    }
 
     private val cardsSubject: BehaviorSubject<VodaCard> = BehaviorSubject.create()
     override val cards: Observable<VodaCard> = cardsSubject
@@ -31,6 +32,7 @@ class SingleCardReadActivity : BaseActivity(), VodaCardsSource {
 
         initReader()
 
+        @Suppress("DEPRECATION")
         if (savedInstanceState == null && NfcAdapter.ACTION_TECH_DISCOVERED == intent.action) {
             val intentTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG) as? Tag
             if (intentTag != null) {

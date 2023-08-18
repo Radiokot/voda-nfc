@@ -8,8 +8,8 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import kotlinx.android.synthetic.main.layout_dialog_edit_liter_price.view.*
 import ua.com.radiokot.voda.R
+import ua.com.radiokot.voda.databinding.LayoutDialogEditLiterPriceBinding
 import ua.com.radiokot.voda.extensions.onEditorAction
 import ua.com.radiokot.voda.util.BigDecimalUtil
 import ua.com.radiokot.voda.util.input.DecimalDigitsInputFilter
@@ -21,13 +21,12 @@ class NewLiterPriceDialog(
 ) {
     @SuppressLint("InflateParams")
     fun show(onPriceEntered: (BigDecimal) -> Unit) {
-        val view = LayoutInflater.from(context)
-            .inflate(R.layout.layout_dialog_edit_liter_price, null, false)
+        val view = LayoutDialogEditLiterPriceBinding.inflate(LayoutInflater.from(context))
 
         lateinit var saveButton: Button
         var enteredPrice: BigDecimal = BigDecimal.ZERO
 
-        view.new_liter_price_edit_text.apply {
+        view.newLiterPriceEditText.apply {
             filters += DecimalDigitsInputFilter(digitsBeforeComa = 2, digitsAfterComa = 2)
             onEditorAction {
                 if (saveButton.isEnabled) {
@@ -54,7 +53,7 @@ class NewLiterPriceDialog(
 
         AlertDialog.Builder(context, R.style.AlertDialog)
             .setTitle(R.string.new_liter_price)
-            .setView(view)
+            .setView(view.root)
             .setPositiveButton(R.string.save) { _, _ ->
                 onPriceEntered(enteredPrice)
             }

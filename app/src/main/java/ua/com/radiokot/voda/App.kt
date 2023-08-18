@@ -1,7 +1,7 @@
 package ua.com.radiokot.voda
 
-import android.app.Application
 import android.util.Log
+import androidx.multidex.MultiDexApplication
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import org.koin.android.ext.koin.androidContext
@@ -11,7 +11,7 @@ import ua.com.radiokot.voda.di.injectionModules
 import java.io.IOException
 import java.net.SocketException
 
-class App : Application() {
+class App : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
