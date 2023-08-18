@@ -19,6 +19,7 @@
 ```properties
 CardKeyHex=00226949A50A
 ```
+Для запуска приложения с тестовым считывателем можно использовать конфигурацию `debugDummyReader`.
 
 ## Tech stack
 - Kotlin
